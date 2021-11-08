@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <script>
+
+
+        $("#calcola").click(function () {
+
+            
+
+            $("h3").html("ciao");
+
+
+
+
+
+
+
+
+
+
+
+
+
+        });
+
+
+
+
+
+
+
+
+    </script>
+
+    <h3> Calcolo Codice Fiscale </h3>
+
+    <h4> Inserisci i dati anagrafici corrispondenti </h4>
+
+    <div class="w3 container">
+
+
+        <!-- Una forma genera di base un Dictionary<string,string>-->
+        <form action="/Users/Calcola" id="formCalcolatore">
+
+            <label class="w3-text-deep-orange">
+
+                <b>Cognome</b>
+
+                <input class="w3-input w3-border w3-hover-orange" type="text" placeholder="Inserire Cognome..." name="lastName" />
+
+            </label>
+        
+            <label class="w3-text-deep-orange">
+
+                <b>Nome</b>
+
+                <input class="w3-input w3-border w3-hover-orange" placeholder="Inserire Nome..." type="text" name="firstName" />
+
+            </label>
+        
+            <label class="w3-text-deep-orange">
+
+                <b>Data di Nascita</b>
+
+                <input class="w3-input w3-border w3-hover-orange" type="date" name="dob" />
+
+            </label>
+        
+            <label class="w3-text-deep-orange">
+
+                <b>Sesso</b>
+
+                <select name="gender">
+
+                    <option value="uomo">M</option>
+
+                    <option value="donna">F</option>
+
+                </select>
+
+            </label>
+
+            <br>
+        
+            <label class="w3-text-deep-orange">
+
+                <b> Luogo di Nascita</b>
+
+                <input class="w3-input w3-border w3-hover-orange" placeholder="Inserire Comune..." type="text" name="pob" />
+
+            </label>
+
+            <button class="w3-button w3-deep-orange w3-border" id="calcola">Calcola </button> 
+
+            </form>
+
+
+
+
+
+
+
+    </div>
+</body>
+</html>
