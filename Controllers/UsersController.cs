@@ -1,6 +1,7 @@
 ﻿using CalcolatoreCFWeb.Data;
 using CalcolatoreCFWeb.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,16 +11,13 @@ namespace CalcolatoreCFWeb.Controllers
 {
     public class UsersController : Controller
     {
-        /*
-        private readonly IDAO _data;
 
-        public UsersController(IDAO data)
-        {
-            data = _data;
-        }
-        */
+
         public IActionResult Calcola(Dictionary<string,string> form)
         {
+
+
+
             User u = new User
             {
                 LastName = form["lastName"],
@@ -30,9 +28,17 @@ namespace CalcolatoreCFWeb.Controllers
             };
 
             u.CreateSsn();
+            
+            Console.WriteLine(u.Ssn);
 
-            return Content(u.Ssn);
-
+            if (u.Ssn.Length == 16)
+            {
+                return Content(u.Ssn.ToUpper());
+            }
+            else
+            {
+                return BadRequest("Parametri Errati");
+            }
         }
 
 

@@ -1,41 +1,41 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
-    <script>
+﻿<script>
+
+    //Nel caso andassimo a cliccare sull'input submit del nostro form
+    $("#formCalcolo").submit(function (event) {
+
+        //Vado a formattare il contenuto delle input dei form in una stringa
+        let datiForm = $("#formCalcolo").serialize();
+
+        //Antepongo ai dati serializzati, il Nome del Controller/ Nome Action
+        let percorsoRequest = "Users/Calcola?" + datiForm;
+
+        
 
 
-        $("#calcola").click(function () {
+        //Faccio una chiamata AJAX post che vada a spedire i dati e poi(then) faccio la funzione
+        $.post(percorsoRequest).then(function (response) {
 
-            
+            if (response == "Parametri Errati") {
+                alert(response);
+            }
 
-            $("h3").html("ciao");
-
-
-
-
-
-
-
-
-
-
-
-
+            else
+            {
+                $("p").html("<h3>"+response+"<h3>");
+            }
 
         });
 
 
+        //Con questo metodo andiamo ad inpedire che la form ci mandi da qualche parte
+        event.preventDefault();
+    })
 
 
 
 
-
-
-    </script>
+</script>
+  
 
     <h3> Calcolo Codice Fiscale </h3>
 
@@ -43,14 +43,13 @@
 
     <div class="w3 container">
 
-
-        <!-- Una forma genera di base un Dictionary<string,string>-->
-        <form action="/Users/Calcola" id="formCalcolatore">
+            <!--Da una form senza action, viene restituito un Dictionary<string,string> coppia chiave-valore-->
+            <form id="formCalcolo">    
 
             <label class="w3-text-deep-orange">
 
                 <b>Cognome</b>
-
+                                                                                 <!--L'attributo "name" corrisponde alla chiave del Dictionary-->
                 <input class="w3-input w3-border w3-hover-orange" type="text" placeholder="Inserire Cognome..." name="lastName" />
 
             </label>
@@ -95,16 +94,12 @@
 
             </label>
 
-            <button class="w3-button w3-deep-orange w3-border" id="calcola">Calcola </button> 
+            <input type="submit" class="w3-button w3-deep-orange w3-border" value="Calcola" />
 
             </form>
-
-
-
-
-
-
-
     </div>
-</body>
-</html>
+
+    <p>
+        ciao
+
+    </p>
