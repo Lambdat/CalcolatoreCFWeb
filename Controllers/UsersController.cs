@@ -1,42 +1,68 @@
 ﻿using CalcolatoreCFWeb.Data;
 using CalcolatoreCFWeb.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using log4net;
+using log4net.Config;
+using System.Reflection;
+using log4net.Repository;
+using System.IO;
 
 namespace CalcolatoreCFWeb.Controllers
 {
     public class UsersController : Controller
     {
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
 
-        public IActionResult Calcola(Dictionary<string,string> form)
+
+
+
+        public IActionResult Calcola(Dictionary<string, string> form)
         {
 
 
+            // Load configuration
+            var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+            XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
 
-            User u = new User
+            User u = null;
+
+            try
             {
-                LastName = form["lastName"],
-                FirstName = form["firstName"],
-                Dob = DateTime.Parse(form["dob"]),
-                Gender = form["gender"],
-                Pob = form["pob"]
-            };
+                u = new User
+                {
+                    LastName = form["lastName"],
+                    FirstName = form["firstName"],
+                    Dob = DateTime.Parse(form["dob"]),
+                    Gender = form["gender"],
+                    Pob = form["pob"]
+                };
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex.Message);
+            }
+            finally
+            {
+                u.CreateSsn();
+            }
+           
 
-            u.CreateSsn();
-            
-            Console.WriteLine(u.Ssn);
+           
 
             if (u.Ssn.Length == 16)
             {
+                log.Info("Codice Fiscale calcolato => " + u.Ssn);
                 return Content(u.Ssn.ToUpper());
             }
             else
             {
+                log.Error("Codice Fiscale di caratteri inferiori a 16");
                 return BadRequest("Parametri Errati");
             }
         }
