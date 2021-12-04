@@ -57,7 +57,7 @@ namespace CalcolatoreCFWeb.Controllers
 
             if (u.Ssn.Length == 16)
             {
-                log.Info("Codice Fiscale calcolato => " + u.Ssn);
+                log.Info(new StringBuilder("SSN = ").Append(u.Ssn).ToString());
                 return Content(u.Ssn.ToUpper());
             }
             else

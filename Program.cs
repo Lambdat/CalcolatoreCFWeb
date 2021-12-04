@@ -16,11 +16,20 @@ namespace CalcolatoreCFWeb
             CreateHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            return Host.CreateDefaultBuilder(args)
+                //.ConfigureLogging((context, logging) =>
+                //{
+                    //logging.ClearProviders();
+                    //logging.AddConfiguration(context.Configuration.GetSection("Logging"));
+                    //logging.AddDebug(); Commentando vedremo solo la console non il log del Debugger
+                    //logging.AddConsole();
+                //})
+                        .ConfigureWebHostDefaults(webBuilder =>
+                         {
+                         webBuilder.UseStartup<Startup>();
+                         });
+        }
     }
 }
